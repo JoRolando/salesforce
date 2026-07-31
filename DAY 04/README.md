@@ -205,17 +205,6 @@ The component is deployed to a Lightning App Page using Lightning App Builder.
 I created a Placement Portal dashboard using Lightning Web Components. It displays student details, placement statistics, today's date, and includes interactive buttons for displaying a welcome message and updating the application status.
 
 ---
-
-# 📸 Screenshots
-
-(Add screenshots here)
-
-- Placement Portal
-- Student Details
-- Welcome Message
-- Apply Button
-- Status Updated
-
 ---
 
 # 🎓 Learning Outcome
