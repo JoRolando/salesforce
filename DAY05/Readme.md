@@ -124,7 +124,3 @@ Responsible for:
 * Understanding the business problem is the first step toward writing effective Apex code.
 
 ---
-
-## 🚀 What's Next?
-
-The next sprint introduces **Apex programming**, where these business rules and service designs will be implemented using Apex classes, methods, SOQL, and DML.
