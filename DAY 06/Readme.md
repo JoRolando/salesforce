@@ -1,54 +1,48 @@
-# 🚀 Day 06 - Retrieving and Managing Information with SOQL and DML
+# 🚀 Day 06 - Building Business Transactions with SOQL, DML and Apex
 
 ## 📖 Overview
 
-Day 6 focused on one of the core concepts of Salesforce development—**working with data**. Until now, the Apex programs developed in previous sessions primarily executed business logic. In this session, I learned how to interact with Salesforce records using **SOQL (Salesforce Object Query Language)** and **DML (Data Manipulation Language)**.
+Day 6 focused on one of the most fundamental aspects of Salesforce development—**working with data**. During this sprint, I learned how Salesforce applications retrieve, validate, and manipulate records using **SOQL (Salesforce Object Query Language)**, **DML (Data Manipulation Language)**, and **Apex**.
 
-Every Salesforce application relies on data stored in objects. Before making any business decision, an application must retrieve the required information from the database. Once the necessary information is available, the application can process it, validate business rules, and update the records when required.
+The session began by introducing SOQL and DML concepts, explaining how enterprise applications first retrieve business information before making decisions. After understanding these concepts, I implemented CRUD (Create, Read, Update, Delete) operations using Apex.
 
-During this practical session, I performed complete **CRUD (Create, Read, Update, Delete)** operations on a custom Salesforce object using Apex in the Developer Console.
+The second part of the sprint simulated a real-world Placement Management System where multiple SOQL queries, business validations, and DML operations were combined to build a complete business transaction. This demonstrated how professional Salesforce developers design maintainable, scalable, and business-oriented applications.
 
 ---
 
 # 🎯 Learning Objectives
 
-By the end of this session, I was able to:
+By the end of this sprint, I was able to:
 
-- Understand why enterprise applications depend on accurate data retrieval.
-- Learn how Salesforce stores data inside objects.
-- Understand the role of SOQL in retrieving Salesforce records.
-- Understand the purpose of DML operations.
-- Retrieve records using SOQL.
-- Insert new records using Apex.
-- Update existing Salesforce records.
-- Delete records from Salesforce.
-- Read and interpret Debug Logs.
-- Perform complete CRUD operations using Apex.
+- Understand why business applications depend on accurate information.
+- Learn the role of SOQL in Salesforce.
+- Retrieve records efficiently using SOQL.
+- Understand DML operations and when to use them.
+- Create, update, and delete Salesforce records.
+- Build complete business transactions using Apex.
+- Apply business validation before modifying data.
+- Write clean and maintainable Salesforce code.
+- Understand enterprise-level engineering principles.
 
 ---
 
 # 🏢 Business Scenario
 
-Consider a Placement Management System.
+This sprint was based on a **Placement Management System**.
 
-When a student clicks the **Apply** button for a company, the application cannot immediately decide whether the student is eligible.
+When a student clicks the **Apply** button for a company, the application cannot immediately process the request.
 
-Instead, it must first retrieve information such as:
+Instead, it must:
 
-- Student Name
-- CGPA
-- Department
-- Active Backlogs
-- Graduation Year
-- Existing Applications
-- Job Eligibility Criteria
-- Application Deadline
+1. Retrieve student information.
+2. Retrieve job eligibility criteria.
+3. Check whether the student has already applied.
+4. Validate eligibility rules.
+5. Create an application record.
+6. Save the record.
+7. Return a confirmation message.
 
-Only after retrieving this information can Salesforce determine whether the student is eligible to apply.
-
-This illustrates one of the most important principles learned during this session:
-
-> **Retrieve information first. Make business decisions afterwards.**
+This reflects how enterprise Salesforce applications process business transactions.
 
 ---
 
@@ -66,53 +60,57 @@ This illustrates one of the most important principles learned during this sessio
 
 # 📚 Concepts Covered
 
-## 1. Salesforce Objects
+## Salesforce Objects
 
-Salesforce stores information inside **Objects**, similar to tables in a relational database.
+Salesforce stores business information inside **Objects**.
 
 Example:
 
-**Student__c**
-
-| Field | Description |
-|--------|-------------|
-| Name | Student Name |
-| CGPA__c | Student CGPA |
+| Object | Purpose |
+|---------|----------|
+| Student__c | Student Information |
+| Job__c | Job Details |
+| Application__c | Student Applications |
 
 ---
 
-## 2. SOQL (Salesforce Object Query Language)
+## SOQL (Salesforce Object Query Language)
 
-SOQL is used to retrieve records from Salesforce objects.
+SOQL is used to retrieve information from Salesforce Objects.
 
-It is similar to SQL but is specifically designed for Salesforce.
-
-General syntax:
+General Syntax
 
 ```sql
-SELECT field_names
+SELECT Fields
 FROM ObjectName
-WHERE condition
+WHERE Condition
 ```
 
-Example:
+Example
 
 ```apex
 SELECT Name, CGPA__c
 FROM Student__c
-WHERE Name = 'Joseph'
+WHERE Name='Joseph'
 LIMIT 1
 ```
 
-This query retrieves the Name and CGPA of the student named **Joseph**.
+### Key Features Learned
+
+- SELECT
+- FROM
+- WHERE
+- LIMIT
+- Retrieving only required fields
+- Query optimization
 
 ---
 
-## 3. DML (Data Manipulation Language)
+## DML (Data Manipulation Language)
 
-DML is used to modify data stored in Salesforce.
+DML is used to manipulate Salesforce records.
 
-The DML operations covered during this session include:
+Operations learned:
 
 - Insert
 - Update
@@ -120,109 +118,84 @@ The DML operations covered during this session include:
 
 ---
 
-# 💻 Practical Implementation
+# 💻 Practical Exercises
 
----
-
-## Exercise 1 – Creating a Student Record (INSERT)
+## Exercise 1 – Create a Student Record
 
 ### Objective
 
-Create a new Student record using Apex and save it inside Salesforce.
+Create a new Student record.
 
 ### Apex Code
 
 ```apex
 Student__c student = new Student__c(
-    Name = 'Joseph',
-    CGPA__c = 8.7
+    Name='Joseph',
+    CGPA__c=8.7
 );
 
 insert student;
 ```
 
-### Explanation
+### Result
 
-- Created a new Student object.
-- Assigned values to Name and CGPA.
-- Used the **insert** DML statement to save the record into Salesforce.
-
-### Expected Output
-
-A new Student record is successfully created.
+Successfully inserted a new Student record into Salesforce.
 
 ---
 
-## Exercise 2 – Retrieving Records using SOQL
+## Exercise 2 – Retrieve Student Information
 
 ### Objective
 
-Retrieve the Student record created in the previous exercise.
+Retrieve the student record using SOQL.
 
 ### Apex Code
 
 ```apex
 Student__c student = [
-    SELECT Name, CGPA__c
+    SELECT Name,CGPA__c
     FROM Student__c
-    WHERE Name = 'Joseph'
+    WHERE Name='Joseph'
     LIMIT 1
 ];
 
 System.debug(student);
 ```
 
-### Explanation
+### Result
 
-- Queried the Student object.
-- Retrieved only the required fields.
-- Stored the returned record inside an Apex variable.
-- Displayed the retrieved record using Debug Logs.
-
-### Output
-
-```
-Student__c
-Name = Joseph
-CGPA = 8.7
-```
+Successfully retrieved the Student record and displayed it in Debug Logs.
 
 ---
 
-## Exercise 3 – Updating an Existing Record
+## Exercise 3 – Update Student Record
 
 ### Objective
 
-Modify the CGPA of an existing Student record.
+Update the student's CGPA.
 
 ### Apex Code
 
 ```apex
-Student__c student = [
-    SELECT Id, CGPA__c
-    FROM Student__c
-    WHERE Name = 'Joseph'
-    LIMIT 1
+Student__c student=[
+SELECT Id,CGPA__c
+FROM Student__c
+WHERE Name='Joseph'
+LIMIT 1
 ];
 
-student.CGPA__c = 9.1;
+student.CGPA__c=9.1;
 
 update student;
 ```
 
-### Explanation
+### Result
 
-- Retrieved the Student record.
-- Updated the CGPA value.
-- Saved the modified record using the **update** DML statement.
-
-### Output
-
-The Student's CGPA was successfully updated from **8.7** to **9.1**.
+Successfully updated the student's CGPA.
 
 ---
 
-## Exercise 4 – Deleting a Record
+## Exercise 4 – Delete Student Record
 
 ### Objective
 
@@ -231,25 +204,98 @@ Delete the Student record.
 ### Apex Code
 
 ```apex
-Student__c student = [
-    SELECT Id
-    FROM Student__c
-    WHERE Name = 'Joseph'
-    LIMIT 1
+Student__c student=[
+SELECT Id
+FROM Student__c
+WHERE Name='Joseph'
+LIMIT 1
 ];
 
 delete student;
 ```
 
-### Explanation
+### Result
 
-- Retrieved the Student record.
-- Used its unique Id.
-- Deleted the record using the **delete** DML statement.
+Successfully removed the Student record.
 
-### Output
+---
 
-The Student record was successfully removed from Salesforce.
+# 🏗️ Engineering Sprint
+
+After learning SOQL and DML, the sprint shifted toward building a **complete enterprise business transaction**.
+
+Instead of writing isolated CRUD operations, multiple business services were combined into one workflow.
+
+---
+
+## Sprint Backlog
+
+| Story ID | User Story | Priority |
+|----------|------------|----------|
+| US-7 | Retrieve Student Information | High |
+| US-8 | Retrieve Job Eligibility | High |
+| US-9 | Prevent Duplicate Applications | High |
+| US-10 | Create Application Record | High |
+| US-11 | Update Application Status | Medium |
+| US-12 | Return User Feedback | Medium |
+
+---
+
+# 🔄 Business Transaction Flow
+
+```text
+Receive Application Request
+            │
+            ▼
+Retrieve Student Details
+            │
+            ▼
+Retrieve Job Eligibility
+            │
+            ▼
+Check Duplicate Applications
+            │
+            ▼
+Validate Eligibility
+            │
+            ▼
+Create Application Record
+            │
+            ▼
+Save Record using DML
+            │
+            ▼
+Return Confirmation
+```
+
+This workflow represents how a real Salesforce application processes business requests.
+
+---
+
+# ⚙️ Engineering Principles Learned
+
+Throughout the sprint, I learned several software engineering principles:
+
+- Retrieve only the information required.
+- Avoid unnecessary SOQL queries.
+- Retrieve only required fields.
+- Perform business validation before DML.
+- Keep methods focused on a single responsibility.
+- Write readable and maintainable Apex code.
+- Separate retrieval, validation, and update logic.
+
+---
+
+# 🧠 Design Considerations
+
+The sprint emphasized writing maintainable software by avoiding common mistakes such as:
+
+- Repeating the same SOQL query in multiple methods.
+- Retrieving unnecessary fields.
+- Executing DML before validation.
+- Writing very large methods with multiple responsibilities.
+
+Instead, responsibilities should be divided into smaller reusable methods.
 
 ---
 
@@ -257,32 +303,63 @@ The Student record was successfully removed from Salesforce.
 
 | SOQL | DML |
 |------|------|
-| Retrieves data | Modifies data |
+| Retrieves records | Modifies records |
 | Uses SELECT | Uses Insert, Update, Delete |
-| Does not modify records | Changes database records |
-| Returns records | Saves changes permanently |
+| Read-only | Changes data |
+| Returns records | Saves records |
 
 ---
+
+
+# 🎤 Interview Preparation
+
+### What is SOQL?
+
+SOQL (Salesforce Object Query Language) is used to retrieve records from Salesforce objects.
+
+---
+
+### What is DML?
+
+DML (Data Manipulation Language) is used to create, update, and delete Salesforce records.
+
+---
+
+### Why should SOQL be executed before DML?
+
+Because business applications must retrieve the required information before validating rules and modifying data.
+
+---
+
+### Why should DML be executed after validation?
+
+Executing DML before validation may insert or update incorrect business data.
+
+---
+
+### Why should only required fields be retrieved?
+
+Retrieving unnecessary fields consumes additional resources and affects application performance.
+
+---
+
 # 💡 Key Takeaways
 
-- Every business application depends on accurate data.
-- SOQL is used to retrieve Salesforce records.
-- DML is used to manipulate Salesforce data.
-- Every update and delete operation requires the record's unique Id.
-- CRUD operations form the foundation of Salesforce application development.
-- Debug Logs are essential for verifying Apex execution and troubleshooting issues.
+- Business applications depend on accurate information.
+- SOQL retrieves business data.
+- DML modifies business data.
+- Business validation should always occur before DML.
+- Every SOQL query should answer one business question.
+- Enterprise applications combine multiple SOQL queries and DML operations into complete business transactions.
+- Clean architecture improves readability, maintainability, and scalability.
 
 ---
 
 
 # 🎯 Conclusion
 
-Day 6 introduced the essential techniques for interacting with Salesforce data. By combining SOQL and DML with Apex, I learned how to build applications capable of retrieving information, applying business logic, and updating records efficiently.
+Day 6 introduced the complete lifecycle of handling data in Salesforce applications. I learned how to retrieve records using SOQL, manipulate records using DML, and integrate these operations into a complete business transaction using Apex.
 
-These concepts serve as the foundation for more advanced Salesforce development topics such as Triggers, Controllers, Batch Apex, and Lightning Web Components, where data retrieval and manipulation are performed extensively.
+Beyond CRUD operations, this sprint emphasized software engineering principles such as data-driven decision making, validation before database updates, efficient querying, and modular application design. These concepts provide a strong foundation for advanced Salesforce topics such as Triggers, Batch Apex, Lightning Web Components, and enterprise application development.
 
 ---
-
-## ⭐ Repository Purpose
-
-This repository documents my Day 6 learning as part of my Salesforce Developer journey. It demonstrates the implementation of SOQL queries and DML operations using Apex through hands-on CRUD exercises and serves as a reference for future Salesforce projects and interview preparation.
