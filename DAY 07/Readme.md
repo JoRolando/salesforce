@@ -102,6 +102,24 @@ When a student's application status changes from **Interview Scheduled** to **Se
 This demonstrates how automation simplifies business processes and reduces manual effort.
 
 ---
+---
+
+## 🛠️ Practical Implementation
+
+To apply the concepts of event-driven automation, I implemented and tested automation for the Placement Management System.
+
+### 1. Automatic Application Date
+
+I created a record-triggered Flow named:
+
+**Auto Populate Application Date**
+
+The Flow is configured on the **Application** object and runs when a new Application record is created.
+
+The Flow automatically sets:
+
+------
+Application Date = Current Date
 
 ## 📚 Key Takeaways
 
